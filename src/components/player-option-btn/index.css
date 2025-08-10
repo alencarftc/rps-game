@@ -1,0 +1,55 @@
+.player-option--blue {
+  --linear-gradient-from: hsl(230, 89%, 62%);
+  --linear-gradient-to: hsl(230, 89%, 65%);
+  --box-shadow-color: hsl(229.87deg 65.25% 46.27%);
+}
+
+.player-option--red {
+  --linear-gradient-from: hsl(349, 71%, 52%);
+  --linear-gradient-to: hsl(349, 70%, 56%);
+  --box-shadow-color: hsl(345.34deg 74.01% 34.71%);
+}
+
+.player-option--yellow {
+  --linear-gradient-from: hsl(39, 89%, 49%);
+  --linear-gradient-to: hsl(40, 84%, 53%);
+  --box-shadow-color: hsl(28.07deg 75.33% 44.51%);
+}
+
+.player-option {
+  background-color: var(--linear-gradient-from);
+  background-image: -webkit-gradient(linear,
+      from(var(--linear-gradient-from)),
+      to(var(--linear-gradient-to)));
+  background-image: -webkit-linear-gradient(var(--linear-gradient-from) 0%,
+      var(--linear-gradient-to) 100%);
+  background-image: -moz-linear-gradient(var(--linear-gradient-from) 0%,
+      var(--linear-gradient-to) 100%);
+  background-image: -o-linear-gradient(var(--linear-gradient-from) 0%,
+      var(--linear-gradient-to) 100%);
+
+  cursor: pointer;
+  padding: 18px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 -4px 1px 2px var(--box-shadow-color) inset;
+  filter: drop-shadow(0);
+  transition: 110ms ease-in filter;
+}
+
+.player-option:hover {
+  filter: drop-shadow(0 0 1.25rem #acacac);
+}
+
+.player-option-image-container {
+  height: 100px;
+  width: 100px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  box-shadow: 0 4px 2px 1px hsl(231.43deg 17.65% 76.67%) inset;
+}
+
+.player-option img {
+  margin: auto;
+}
