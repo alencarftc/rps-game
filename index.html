@@ -20,12 +20,11 @@
     <link rel="stylesheet" href="./src/styles/theme.css" />
 
     <title>Frontend Mentor | Rock, Paper, Scissors</title>
-    <script src="./src/components/player-option-polygon/main.js" defer></script>
-    <script src="./src/components/player-option-btn/main.js" defer></script>
   </head>
   <body>
     <div id="app" class="radial-bg">
-      <player-option-polygon>
+      <app-header></app-header>
+      <player-option-polygon draw="true">
         <player-option-btn color="blue" option="paper"></player-option-btn>
         <player-option-btn color="yellow" option="scissors"></player-option-btn>
         <player-option-btn color="red" option="rock"></player-option-btn>
@@ -33,11 +32,14 @@
     </div>
 
     <!-- <div cl
-     ass="attribution">
-      Challenge by
-      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
-        >Frontend Mentor</a
-      >. Coded by <a href="https://github.com/alencarftc">Felipe Alencar</a>.
-    </div> -->
+    ass="attribution">
+    Challenge by
+    <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+    >Frontend Mentor</a
+    >. Coded by <a href="https://github.com/alencarftc">Felipe Alencar</a>.
+  </div> -->
+  <script src="./src/components/app-header/main.js" defer></script>
+    <script src="./src/components/player-option-polygon/main.js" defer></script>
+    <script src="./src/components/player-option-btn/main.js" defer></script>
   </body>
 </html>

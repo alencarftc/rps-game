@@ -1,0 +1,44 @@
+.app-header {
+    border: 1px solid #CCC;
+    width: 100%;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.app-title {
+    margin: 0;
+    font-weight: 700;
+}
+
+.app-title span {
+    display: block;
+    margin: -8px 0;
+}
+
+.app-score-container {
+    background: #FFF;
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-score-title {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: blue;
+}
+
+.app-score-value {
+    font-size: 36px;
+    color: #454545;
+    letter-spacing: -2px;
+    font-weight: 700;
+
+}
