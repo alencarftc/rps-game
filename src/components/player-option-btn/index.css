@@ -28,6 +28,8 @@
   background-image: -o-linear-gradient(var(--linear-gradient-from) 0%,
       var(--linear-gradient-to) 100%);
 
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   padding: 18px;
   border-radius: 50%;
@@ -35,9 +37,11 @@
   box-shadow: 0 -4px 1px 2px var(--box-shadow-color) inset;
   filter: drop-shadow(0);
   transition: 110ms ease-in filter;
+  user-select: none;
+  outline: 0;
 }
 
-.player-option:hover {
+.player-option:is(:hover, :focus, :active) {
   filter: drop-shadow(0 0 1.25rem #acacac);
 }
 
@@ -52,4 +56,15 @@
 
 .player-option img {
   margin: auto;
+  user-select: none;
+}
+
+player-option-btn .player-option {
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+player-option-btn:not(:defined) .player-option {
+  opacity: 0;
+  background: none;
 }

@@ -1,44 +1,44 @@
+"use strict";
+
 customElements.define(
   "player-option-btn",
   class PlayerOptionBtn extends HTMLElement {
     constructor() {
       super();
 
-      const option = this.getAttribute("option");
-      if (!option) {
-        console.error("Property 'id' is undefined");
-        return;
-      }
+      this.attachShadow({ mode: "open" });
 
-      const color = this.getAttribute("color");
-      if (!color) {
-        console.error("Property 'color' is undefined");
-        return;
-      }
+      this.props = {
+        color:
+          this.getAttribute("color") ||
+          console.error("Property 'color' is undefined"),
+        option:
+          this.getAttribute("option") ||
+          console.error("Property 'id' is undefined"),
+      };
+    }
 
-      const wrapper = document.createElement("button");
-      wrapper.classList.add("player-option");
-      wrapper.classList.add(`player-option--${color}`);
-      wrapper.setAttribute("id", option);
+    connectedCallback() {
+      this.shadowRoot.innerHTML = this.render();
+    }
 
-      const imageContainerEl = document.createElement("div");
-      imageContainerEl.classList.add("player-option-image-container");
-
-      const imageEl = document.createElement("img");
-      imageEl.setAttribute("src", `./assets/images/icon-${option}.svg`);
-      imageEl.setAttribute("alt", "Paper");
-
-      imageContainerEl.appendChild(imageEl);
-      wrapper.appendChild(imageContainerEl);
-      const linkEl = document.createElement("link");
-      linkEl.setAttribute("rel", "stylesheet");
-      linkEl.setAttribute("type", "text/css");
-      linkEl.setAttribute(
-        "href",
-        "./src/components/player-option-btn/index.css"
-      );
-
-      this.attachShadow({ mode: "open" }).append(linkEl, wrapper);
+    render() {
+      return `
+      <style>
+        @import "./src/components/player-option-btn/index.css";
+      </style>
+      <button
+        id="player-option-${this.props.option}"
+        class="player-option player-option--${this.props.color}"
+      >
+        <div class="player-option-image-container">
+          <img
+            src="./assets/images/icon-${this.props.option}.svg"
+            alt="${this.props.option}"
+          />
+        </div>
+      </button>
+    `;
     }
   }
 );
