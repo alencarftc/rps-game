@@ -35,6 +35,7 @@ customElements.define(
           <img
             src="./assets/images/icon-${this.props.option}.svg"
             alt="${this.props.option}"
+            draggable="false"
           />
         </div>
       </button>

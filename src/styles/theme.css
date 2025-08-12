@@ -1,4 +1,25 @@
-#app.radial-bg {
+body {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+:root {
+  --app-c-white: hsl(255, 100%, 100%);
+  --app-c-gray: hsl(217, 16%, 45%);
+  --app-c-blue: hsl(229, 64%, 46%);
+
+  --app-c-game-score-title: var(--app-c-blue);
+  --app-c-game-score-bg: var(--app-c-white);
+
+  --app-c-game-rules-btn-text: var(--app-c-white);
+  --app-c-game-rules-btn-border: var(--app-c-white);
+  --app-c-game-title: var(--app-c-white);
+  --app-c-header-outline: var(--app-c-gray);
+  --app-dark-text: hsl(229, 25%, 31%);
+}
+
+body {
   /* 1) Fallback sólido (sempre declare primeiro) */
   background-color: #1f3756;
 
@@ -43,7 +64,6 @@
   /* Ajustes úteis */
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover; /* ou '100% 100%' se quiser sempre preencher exatamente */
-  /* opcional: para conteúdo sobreposto */
+  background-size: cover;
   color: #fff;
 }

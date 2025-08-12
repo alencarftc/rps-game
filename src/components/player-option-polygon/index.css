@@ -1,23 +1,52 @@
 .polygon-container {
-    position: relative;
-    margin: auto;
+  position: relative;
+  max-width: 320px;
+  max-height: 320px;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  --space-between-components: 90px;
 }
 
-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+.polygon-svg {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.7) translate(0, 10px);
 }
 
 :host {
-    display: flex;
+  display: flex;
 }
 
 ::slotted(player-option-btn) {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+
+::slotted(player-option-btn:nth-child(1)) {
+  transform: translate(calc(-50% - var(--space-between-components)), 0);
+}
+::slotted(player-option-btn:nth-child(2)) {
+  transform: translate(calc(-50% + var(--space-between-components)), 0);
+}
+::slotted(player-option-btn:nth-child(3)) {
+  transform: translate(
+    -50%,
+    calc(50% + var(--space-between-components) - 10px)
+  );
+}
+
+@media screen and (min-width: 768px) {
+  .polygon-container {
+    --space-between-components: 140px;
+  }
+  .polygon-svg {
+    transform: scale(0.9) translate(0, 85px);
+  }
 }

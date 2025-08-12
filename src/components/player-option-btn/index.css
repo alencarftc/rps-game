@@ -18,45 +18,50 @@
 
 .player-option {
   background-color: var(--linear-gradient-from);
-  background-image: -webkit-gradient(linear,
-      from(var(--linear-gradient-from)),
-      to(var(--linear-gradient-to)));
-  background-image: -webkit-linear-gradient(var(--linear-gradient-from) 0%,
-      var(--linear-gradient-to) 100%);
-  background-image: -moz-linear-gradient(var(--linear-gradient-from) 0%,
-      var(--linear-gradient-to) 100%);
-  background-image: -o-linear-gradient(var(--linear-gradient-from) 0%,
-      var(--linear-gradient-to) 100%);
+  background-image: -webkit-gradient(
+    linear,
+    from(var(--linear-gradient-from)),
+    to(var(--linear-gradient-to))
+  );
+  background-image: -webkit-linear-gradient(
+    var(--linear-gradient-from) 0%,
+    var(--linear-gradient-to) 100%
+  );
+  background-image: -moz-linear-gradient(
+    var(--linear-gradient-from) 0%,
+    var(--linear-gradient-to) 100%
+  );
+  background-image: -o-linear-gradient(
+    var(--linear-gradient-from) 0%,
+    var(--linear-gradient-to) 100%
+  );
 
-  width: 100%;
-  height: 100%;
   cursor: pointer;
-  padding: 18px;
+  padding: 16px;
   border-radius: 50%;
   border: none;
-  box-shadow: 0 -4px 1px 2px var(--box-shadow-color) inset;
+  box-shadow: 0 -4px 1px 2px var(--box-shadow-color) inset, 0 10px 6px -8px #000;
   filter: drop-shadow(0);
   transition: 110ms ease-in filter;
   user-select: none;
   outline: 0;
 }
 
-.player-option:is(:hover, :focus, :active) {
+.player-option:is(:hover, :active) {
   filter: drop-shadow(0 0 1.25rem #acacac);
 }
 
 .player-option-image-container {
-  height: 100px;
-  width: 100px;
-  background: #fff;
+  background: #dfdfdf;
   border-radius: 50%;
   display: flex;
-  box-shadow: 0 4px 2px 1px hsl(231.43deg 17.65% 76.67%) inset;
+  box-shadow: inset 0px 6px 0px hsl(231.43deg 17.65% 76.67%);
 }
 
 .player-option img {
+  width: 45px;
   margin: auto;
-  user-select: none;
+  pointer-events: none;
 }
 
 player-option-btn .player-option {
@@ -67,4 +72,25 @@ player-option-btn .player-option {
 player-option-btn:not(:defined) .player-option {
   opacity: 0;
   background: none;
+}
+
+.player-option-image-container {
+  height: 100px;
+  width: 100px;
+}
+@media screen and (min-width: 768px) {
+  .player-option-image-container {
+    height: 160px;
+    width: 160px;
+  }
+  .player-option-image-container {
+    box-shadow: inset 0px 8px 0px hsl(231.43deg 17.65% 76.67%);
+  }
+  .player-option img {
+    width: 70px;
+  }
+
+  .player-option {
+    padding: 24px;
+  }
 }
