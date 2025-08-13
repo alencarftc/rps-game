@@ -1,0 +1,51 @@
+.app-container {
+  width: 100%;
+  max-width: 700px;
+  height: inherit;
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  padding: 2rem 1rem 2rem 1.75rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+.app-container > * {
+  width: 100%;
+}
+
+player-option-polygon {
+  height: 400px;
+  width: 400px;
+}
+
+#btn-rules {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  position: absolute;
+  bottom: 32px;
+  right: 50%;
+  transform: translate(50%, 0);
+  border: 2px solid var(--app-c-game-rules-btn-border);
+  background: none;
+  color: var(--app-c-game-rules-btn);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  max-width: 150px;
+}
+
+@media screen and (min-width: 768px) {
+  .app-container {
+    padding: 3rem 0 0;
+    gap: 2rem;
+  }
+  #btn-rules {
+    right: 32px;
+    transform: none;
+  }
+}

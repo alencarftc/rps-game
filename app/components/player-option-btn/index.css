@@ -42,9 +42,18 @@
   border: none;
   box-shadow: 0 -4px 1px 2px var(--box-shadow-color) inset, 0 10px 6px -8px #000;
   filter: drop-shadow(0);
-  transition: 110ms ease-in filter;
+  transition: filter 110ms ease-in, opacity 1000ms ease-in-out;
   user-select: none;
   outline: 0;
+  opacity: 1;
+}
+/* .player-option[selected="true"] {
+  background: black;
+} */
+.player-option[selected="false"] {
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .player-option:is(:hover, :active) {
@@ -78,6 +87,11 @@ player-option-btn:not(:defined) .player-option {
   height: 100px;
   width: 100px;
 }
+
+#player-option-house {
+  opacity: 0;
+}
+
 @media screen and (min-width: 768px) {
   .player-option-image-container {
     height: 160px;

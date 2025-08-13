@@ -17,9 +17,6 @@ customElements.define(
 
     render() {
       return `
-      <style>
-        @import "./src/components/my-component/index.css";
-      </style>
       <div>
       
       </div>

@@ -1,0 +1,43 @@
+.game-area {
+  position: relative;
+  max-width: 320px;
+  max-height: 320px;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.game-in-progress.show-house-pick {
+  opacity: 1;
+}
+.game-in-progress {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+  position: absolute;
+  top: 0;
+  width: inherit;
+  height: inherit;
+}
+.game-labels {
+  width: 100%;
+  height: 300px;
+  position: absolute;
+}
+
+.game-labels > * {
+  position: inherit;
+  bottom: 30px;
+}
+.game-labels .user-label {
+  left: 30px;
+}
+.game-labels .house-label {
+  right: 30px;
+}
+
+player-option-btn[house="true"] {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translate(0, -50%);
+}

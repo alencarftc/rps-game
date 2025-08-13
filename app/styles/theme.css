@@ -1,9 +1,3 @@
-body {
-  font-family: "Barlow Semi Condensed", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
 :root {
   --app-c-white: hsl(255, 100%, 100%);
   --app-c-gray: hsl(217, 16%, 45%);
@@ -19,14 +13,34 @@ body {
   --app-dark-text: hsl(229, 25%, 31%);
 }
 
+#root {
+  position: relative;
+  display: block;
+}
+
+#root > * {
+  min-height: 100vh;
+}
+
 body {
-  /* 1) Fallback sólido (sempre declare primeiro) */
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+body {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+
   background-color: #1f3756;
 
-  /* 2) SVG data-URI fallback (bom para IE9/old Android that don't support gradients well) */
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' width='100%' height='100%'><defs><radialGradient id='g' cx='50%' cy='50%' r='75%'><stop offset='0%' stop-color='%231f3756'/><stop offset='100%' stop-color='%23141539'/></radialGradient></defs><rect width='100%' height='100%' fill='url(%23g)'/></svg>");
 
-  /* 3) Old WebKit radial (very old iOS/Android) */
   background-image: -webkit-gradient(
     radial,
     50% 50%,
@@ -37,7 +51,6 @@ body {
     to(hsl(237, 49%, 15%))
   );
 
-  /* 4) Vendor-prefixed radial-gradient (keeps older engines happy) */
   background-image: -webkit-radial-gradient(
     circle at center,
     hsl(214, 47%, 23%) 0%,
@@ -54,14 +67,12 @@ body {
     hsl(237, 49%, 15%) 100%
   );
 
-  /* 5) Standard (declarar por último para browsers modernos) */
   background-image: radial-gradient(
     circle at center,
     hsl(214, 47%, 23%) 0%,
     hsl(237, 49%, 15%) 100%
   );
 
-  /* Ajustes úteis */
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
