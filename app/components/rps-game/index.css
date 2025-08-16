@@ -7,10 +7,10 @@
   height: 100%;
 }
 
-.game-in-progress.show-house-pick {
+#game-in-progress.show-house-pick {
   opacity: 1;
 }
-.game-in-progress {
+#game-in-progress {
   opacity: 0;
   transition: opacity 300ms ease-in-out;
   position: absolute;
@@ -35,9 +35,77 @@
   right: 30px;
 }
 
+player-option-btn {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transition: left 1000ms ease-in-out, top 1000ms ease-in-out,
+    transform 1000ms ease-in-out, filter 300ms ease-in-out,
+    opacity 1000ms ease-in-out;
+}
+
+player-option-btn:nth-child(1) {
+  transform: translate(calc(-50% - var(--space-between-components)), 0);
+}
+player-option-btn:nth-child(2) {
+  transform: translate(calc(-50% + var(--space-between-components)), 0);
+}
+player-option-btn:nth-child(3) {
+  transform: translate(
+    -50%,
+    calc(50% + var(--space-between-components) - 10px)
+  );
+}
+player-option-btn[selected="false"] {
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+player-option-btn[selected="true"] {
+  transform: translate(0, -50%);
+  left: 0;
+  top: 50%;
+  pointer-events: none;
+  cursor: default;
+}
+
 player-option-btn[house="true"] {
   position: absolute;
   top: 50%;
   right: 30px;
   transform: translate(0, -50%);
+  pointer-events: none;
+  cursor: default;
+}
+player-option-btn[winner="true"] {
+  filter: drop-shadow(0 0 50px #fff);
+}
+
+#game-result {
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+  pointer-events: none;
+  cursor: default;
+}
+#game-result.show-result {
+  opacity: 1;
+}
+#game-result-title {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+#game-result button {
+  font-size: 2rem;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  border: 2px solid var(--app-c-game-rules-btn-border);
+  padding: 0.75rem 3.5rem;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
 }

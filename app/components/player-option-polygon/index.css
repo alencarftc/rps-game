@@ -8,14 +8,14 @@
   --space-between-components: 90px;
 }
 
-.polygon-svg.fade-hide {
+#polygon-svg.fade-hide {
   opacity: 0;
 }
-.polygon-svg {
+#polygon-svg {
   width: 100%;
   height: 100%;
   transform: scale(0.7) translate(0, 10px);
-  transition: opacity 300ms ease-in-out;
+  transition: opacity 1000ms ease-in-out;
   opacity: 1;
 }
 
@@ -24,39 +24,11 @@
   height: 100%;
 }
 
-::slotted(player-option-btn) {
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transition: left 1000ms ease-in-out, top 1000ms ease-in-out,
-    transform 1000ms ease-in-out;
-}
-
-::slotted(player-option-btn:nth-child(1)) {
-  transform: translate(calc(-50% - var(--space-between-components)), 0);
-}
-::slotted(player-option-btn:nth-child(2)) {
-  transform: translate(calc(-50% + var(--space-between-components)), 0);
-}
-::slotted(player-option-btn:nth-child(3)) {
-  transform: translate(
-    -50%,
-    calc(50% + var(--space-between-components) - 10px)
-  );
-}
-
-::slotted(player-option-btn[selected="true"]) {
-  transform: translate(0, -50%);
-  left: 0;
-  top: 50%;
-}
-
 @media screen and (min-width: 768px) {
   .polygon-container {
     --space-between-components: 140px;
   }
-  .polygon-svg {
+  #polygon-svg {
     transform: scale(0.9) translate(0, 85px);
   }
 }

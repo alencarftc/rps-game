@@ -1,4 +1,5 @@
 const DEFAULT_OPTIONS = ["rock", "paper", "scissors"];
+const DEFAULT_OPTIONS_COLORS = ["red", "blue", "yellow"];
 const DEFAULT_RULES = {
   rock: "scissors",
   scissors: "paper",
@@ -6,6 +7,8 @@ const DEFAULT_RULES = {
 };
 
 const BONUS_OPTIONS = ["rock", "paper", "scissors", "lizard", "spock"];
+const BONUS_OPTIONS_COLORS = ["red", "blue", "yellow", "cyan", "purple"];
+
 const BONUS_RULES = {
   paper: ["rock", "spock"],
   scissors: ["paper", "lizard"],
@@ -48,20 +51,24 @@ export class Game {
   get rules() {
     return this.mode === GameMode.Default ? DEFAULT_RULES : BONUS_RULES;
   }
-
-  play(userChoice) {
+  get colors() {
+    return this.mode === GameMode.Default
+      ? DEFAULT_OPTIONS_COLORS
+      : BONUS_OPTIONS_COLORS;
+  }
+  sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  async play(userChoice) {
     this.loading = true;
+    await this.sleep(3000);
 
     const houseChoice = this.generateHouseChoice();
     let result = this.checkWinner(userChoice, houseChoice);
-    // show winner here
 
-    let timeout = setTimeout(() => {
-      this.loading = false;
+    this.loading = false;
 
-      console.log(result);
-      clearTimeout(timeout);
-    }, 2000);
+    return result;
   }
 
   generateHouseChoice() {
@@ -69,17 +76,20 @@ export class Game {
   }
 
   checkWinner(userChoice, houseChoice) {
+    let winner = 0;
     const calculation =
       this.mode === GameMode.Default
         ? this.rules[userChoice] == houseChoice
         : this.rules[userChoice].includes(houseChoice);
 
     if (calculation) {
-      return 1;
+      winner = 1;
     } else if (userChoice === houseChoice) {
-      return 0;
+      winner = 0;
     } else {
-      return -1;
+      winner = -1;
     }
+
+    return { winner, houseChoice };
   }
 }

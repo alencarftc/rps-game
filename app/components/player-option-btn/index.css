@@ -42,19 +42,13 @@
   border: none;
   box-shadow: 0 -4px 1px 2px var(--box-shadow-color) inset, 0 10px 6px -8px #000;
   filter: drop-shadow(0);
-  transition: filter 110ms ease-in, opacity 1000ms ease-in-out;
+  transition: filter 110ms ease-in;
   user-select: none;
   outline: 0;
-  opacity: 1;
 }
 /* .player-option[selected="true"] {
   background: black;
 } */
-.player-option[selected="false"] {
-  opacity: 0;
-  z-index: -1;
-  pointer-events: none;
-}
 
 .player-option:is(:hover, :active) {
   filter: drop-shadow(0 0 1.25rem #acacac);
@@ -71,16 +65,6 @@
   width: 45px;
   margin: auto;
   pointer-events: none;
-}
-
-player-option-btn .player-option {
-  opacity: 1;
-  transition: opacity 1s ease-out;
-}
-
-player-option-btn:not(:defined) .player-option {
-  opacity: 0;
-  background: none;
 }
 
 .player-option-image-container {

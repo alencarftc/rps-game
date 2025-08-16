@@ -1,16 +1,9 @@
-import sheetStr from "./index.css";
+import { BaseElement } from "../../core/element";
+import styles from "./index.css";
 
-export class AppHeader extends HTMLElement {
+export class AppHeader extends BaseElement {
   constructor() {
-    super();
-
-    const sheet = new CSSStyleSheet();
-    sheet.replaceSync(sheetStr);
-
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.adoptedStyleSheets = [sheet];
-
-    this.props = {};
+    super(styles);
   }
 
   connectedCallback() {
