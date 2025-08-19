@@ -5,6 +5,8 @@ import { PlayerOptionBtn } from "../components/player-option-btn/index.mjs";
 import { AppHeader } from "../components/app-header/index.mjs";
 import { RpsGame } from "../components/rps-game/index.mjs";
 
+import { Component } from "../constants/components.mjs";
+
 import "../styles/modern-normalize.css";
 import "../styles/theme.css";
 
@@ -30,23 +32,23 @@ Core.inst = null;
 
 const components = [
   {
-    tagName: "player-option-polygon",
+    tagName: Component.PlayerOptionPolygon,
     component: PlayerOptionPolygon,
   },
   {
-    tagName: "player-option-btn",
+    tagName: Component.PlayerOptionBtn,
     component: PlayerOptionBtn,
   },
   {
-    tagName: "app-header",
+    tagName: Component.AppHeader,
     component: AppHeader,
   },
   {
-    tagName: "rps-game",
+    tagName: Component.RpsGame,
     component: RpsGame,
   },
   {
-    tagName: "rps-game-home",
+    tagName: Component.HomeComponent,
     component: HomeComponent,
   },
 ];

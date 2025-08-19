@@ -1,14 +1,8 @@
-import ScissorsIcon from "../../assets/images/icon-scissors.svg";
-import PaperIcon from "../../assets/images/icon-paper.svg";
-import RockIcon from "../../assets/images/icon-rock.svg";
 import { BaseElement } from "../../core/element";
 import styles from "./index.css";
 
-const OPTIONS_ICONS = {
-  scissors: ScissorsIcon,
-  paper: PaperIcon,
-  rock: RockIcon,
-};
+import { DEFAULT_OPTIONS_ICONS } from "../../constants/game.mjs";
+import { Game } from "../../classes/game";
 
 export class PlayerOptionBtn extends BaseElement {
   static observedAttributes = ["color", "option", "selected"];
@@ -26,7 +20,7 @@ export class PlayerOptionBtn extends BaseElement {
 
   connectedCallback() {
     const { option, color } = this.props;
-    const src = OPTIONS_ICONS[option];
+    const src = DEFAULT_OPTIONS_ICONS[option];
 
     this.shadowRoot.innerHTML = this.render(option, color, src);
 
@@ -37,6 +31,9 @@ export class PlayerOptionBtn extends BaseElement {
     );
     this.$buttonOptionImg = this.button.querySelector("img");
   }
+  get rules() {
+    return Game.instance.icons;
+  }
 
   attributeChangedCallback(name, old, newv) {
     if (this.props.house) {
@@ -46,7 +43,8 @@ export class PlayerOptionBtn extends BaseElement {
           this.button.classList.add(`player-option--${newv}`);
         },
         option: () => {
-          this.$buttonOptionImg.setAttribute("src", OPTIONS_ICONS[newv]);
+          const src = DEFAULT_OPTIONS_ICONS[newv];
+          this.$buttonOptionImg.setAttribute("src", src);
           this.$buttonOptionImg.setAttribute("alt", newv);
         },
       })[name]();
@@ -57,7 +55,7 @@ export class PlayerOptionBtn extends BaseElement {
     return `
       <button
         id="${option ? `player-option-${option}` : "player-house-option"}"
-        class="player-option ${color ?? `player-option--${color}`}"
+        class="player-option ${color && `player-option--${color}`}"
       >
         <div class="player-option-image-container">
           <img

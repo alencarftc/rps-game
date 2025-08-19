@@ -12,6 +12,7 @@ import { readFileSync } from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import copy from "rollup-plugin-copy";
+import includePaths from "rollup-plugin-includepaths";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +37,12 @@ export default {
     assetFileNames: "assets/[name]-[hash][extname]",
   },
   plugins: [
+    includePaths({
+      include: {},
+      paths: ["src/lib", "src/other"],
+      external: [],
+      extensions: [".js", ".json", ".html"],
+    }),
     image(),
     postcss({
       include: "app/styles/*.css",

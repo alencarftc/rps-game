@@ -1,21 +1,4 @@
-const DEFAULT_OPTIONS = ["rock", "paper", "scissors"];
-const DEFAULT_OPTIONS_COLORS = ["red", "blue", "yellow"];
-const DEFAULT_RULES = {
-  rock: "scissors",
-  scissors: "paper",
-  paper: "rock",
-};
-
-const BONUS_OPTIONS = ["rock", "paper", "scissors", "lizard", "spock"];
-const BONUS_OPTIONS_COLORS = ["red", "blue", "yellow", "cyan", "purple"];
-
-const BONUS_RULES = {
-  paper: ["rock", "spock"],
-  scissors: ["paper", "lizard"],
-  rock: ["lizard", "scissors"],
-  lizard: ["spock", "paper"],
-  spock: ["scissors", "rock"],
-};
+import * as Config from "../constants/game.mjs";
 
 const GameMode = {
   Default: "default",
@@ -37,6 +20,7 @@ export class Game {
 
     return this.instance;
   }
+
   static get bonus() {
     if (!Game.instance) {
       this.instance = new Game(GameMode.Bonus);
@@ -46,19 +30,37 @@ export class Game {
   }
 
   get options() {
-    return this.mode === GameMode.Default ? DEFAULT_OPTIONS : BONUS_OPTIONS;
+    return {
+      [GameMode.Default]: Config.DEFAULT_OPTIONS,
+      [GameMode.Bonus]: Config.BONUS_OPTIONS,
+    }[this.mode];
   }
+
   get rules() {
-    return this.mode === GameMode.Default ? DEFAULT_RULES : BONUS_RULES;
+    return {
+      [GameMode.Default]: Config.DEFAULT_RULES,
+      [GameMode.Bonus]: Config.BONUS_RULES,
+    }[this.mode];
   }
+
   get colors() {
-    return this.mode === GameMode.Default
-      ? DEFAULT_OPTIONS_COLORS
-      : BONUS_OPTIONS_COLORS;
+    return {
+      [GameMode.Default]: Config.DEFAULT_OPTIONS_COLORS,
+      [GameMode.Bonus]: Config.BONUS_OPTIONS_COLORS,
+    }[this.mode];
   }
+
+  get icons() {
+    return {
+      [GameMode.Default]: Config.DEFAULT_OPTIONS_ICONS,
+      [GameMode.Bonus]: Config.BONUS_OPTIONS_ICONS,
+    }[this.mode];
+  }
+
   sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
+
   async play(userChoice) {
     this.loading = true;
     await this.sleep(3000);
@@ -71,25 +73,23 @@ export class Game {
     return result;
   }
 
+  isUserWinner(userChoice, houseChoice) {
+    return this.mode === GameMode.Default
+      ? this.rules[userChoice] == houseChoice
+      : this.rules[userChoice].includes(houseChoice);
+  }
+
   generateHouseChoice() {
     return this.options[Math.floor(Math.random() * this.options.length)];
   }
 
   checkWinner(userChoice, houseChoice) {
-    let winner = 0;
-    const calculation =
-      this.mode === GameMode.Default
-        ? this.rules[userChoice] == houseChoice
-        : this.rules[userChoice].includes(houseChoice);
-
-    if (calculation) {
-      winner = 1;
-    } else if (userChoice === houseChoice) {
-      winner = 0;
-    } else {
-      winner = -1;
+    if (userChoice === houseChoice) {
+      return { winner: 0, houseChoice };
     }
 
+    const userWins = this.isUserWinner(userChoice, houseChoice);
+    const winner = userWins ? 1 : -1;
     return { winner, houseChoice };
   }
 }

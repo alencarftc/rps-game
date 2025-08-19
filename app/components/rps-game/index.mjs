@@ -1,25 +1,22 @@
 import { Game } from "../../classes/game";
-import { EventManager } from "../../classes/event-manager";
 
 import { BaseElement } from "../../core/element";
-
+import { Component } from "../../constants/components.mjs";
 import styles from "./index.css";
 
-const RESET_ANIMATING = {
-  userChoice: 0,
-  houseChoice: 0,
-  result: 0,
-  modeChange: 0,
+const TRANSITION_CONFIG = {
+  userChoice: 1000,
+  houseChoice: 1000,
+  result: 1000,
+  modeChange: 1000,
 };
 
 export class RpsGame extends BaseElement {
   constructor() {
     super(styles);
 
-    this.game = {
-      inprogress: false,
-    };
-    this.animating = RESET_ANIMATING;
+    this.state = {};
+    this.state.inprogress = false;
     this.userChoice = undefined;
   }
 
@@ -27,19 +24,21 @@ export class RpsGame extends BaseElement {
     this.shadowRoot.innerHTML = this.render();
 
     this.$buttons = this.shadowRoot.querySelectorAll(
-      "player-option-btn[option]"
+      `${Component.PlayerOptionBtn}[option]`
     );
-    this.$polygon = this.shadowRoot.querySelector("player-option-polygon");
+    this.$polygon = this.shadowRoot.querySelector(
+      Component.PlayerOptionPolygon
+    );
     this.$gameHouseElements =
       this.shadowRoot.querySelector("#game-in-progress");
     this.$houseBtn = this.shadowRoot.querySelector(
-      "player-option-btn[house=true]"
+      `${Component.PlayerOptionBtn}[house=true]`
     );
     this.$gameResult = this.shadowRoot.querySelector("#game-result");
     this.$gameResultTitle = this.shadowRoot.querySelector("#game-result-title");
 
     this.optionBtnEls = {};
-    Array.from(this.$buttons).map((button) => {
+    this.$buttons.forEach((button) => {
       button.addEventListener("click", (e) => this.handleOnClick(e));
       this.optionBtnEls[button.getAttribute("option")] = button;
     });
@@ -55,19 +54,12 @@ export class RpsGame extends BaseElement {
     this.$gameResultPlay.removeEventListener("click", this.reset);
   }
 
-  emitUserChoice = (userChoice) => {
-    this.shadowRoot.dispatchEvent(EventManager.getUserChoiceEvent(userChoice));
-  };
-  emitUserPlayAgain = () => {
-    this.shadowRoot.dispatchEvent(EventManager.getUserPlayAgainEvent());
-  };
-
   updateHouse = (option, color) => {
     this.$houseBtn.setAttribute("option", option);
     this.$houseBtn.setAttribute("color", color);
   };
 
-  animateUntilResult = async (intervalTimeMs, result) => {
+  animateUntilResult = async (result) => {
     for (const button of Array.from(this.$buttons)) {
       if (result && result.houseChoice == button.props.option) {
         const houseIdx = Game.instance.options.indexOf(result.houseChoice);
@@ -78,7 +70,7 @@ export class RpsGame extends BaseElement {
         return true;
       } else this.updateHouse(button.props.option, button.props.color);
 
-      await Game.instance.sleep(intervalTimeMs / 3);
+      await Game.instance.sleep(TRANSITION_CONFIG.userChoice / 3);
     }
   };
 
@@ -87,36 +79,33 @@ export class RpsGame extends BaseElement {
       let result = undefined;
 
       const interval = setInterval(async () => {
-        if (await this.animateUntilResult(this.animating.userChoice, result)) {
+        if (await this.animateUntilResult(result)) {
           clearInterval(interval);
           resolve(result);
         }
 
         promise.then((res) => (result = res));
-      }, this.animating.userChoice);
+      }, TRANSITION_CONFIG.userChoice);
     });
   };
 
   reset = () => {
-    this.game.inprogress = false;
-    this.animating = RESET_ANIMATING;
+    this.state.inprogress = false;
     this.optionBtnEls[this.userChoice].removeAttribute("selected");
     this.optionBtnEls[this.userChoice].removeAttribute("winner");
     this.$houseBtn.removeAttribute("winner");
     this.userChoice = undefined;
     this.$polygon.setAttribute("lines", true);
-    this.emitUserPlayAgain();
     this.$gameResult.classList.remove("show-result");
     this.$gameHouseElements.classList.remove("show-house-pick");
     this.$buttons.forEach((button) => button.removeAttribute("selected"));
   };
 
   async handleOnClick(e) {
-    if (this.game.inprogress) return;
+    if (this.state.inprogress) return;
 
-    this.game.inprogress = true;
+    this.state.inprogress = true;
     this.userChoice = e.target.getAttribute("option");
-    this.animating.userChoice = 1000;
 
     this.$buttons.forEach((btn) =>
       btn.setAttribute(
@@ -128,7 +117,7 @@ export class RpsGame extends BaseElement {
     this.optionBtnEls[this.userChoice].setAttribute("selected", true);
     this.$polygon.setAttribute("lines", false);
 
-    this.animating.houseChoice = 1000;
+    // consertar isso aqui
     const result = await this.animateHouseChoiceWhile(
       Game.default.play(this.userChoice)
     );
@@ -147,16 +136,16 @@ export class RpsGame extends BaseElement {
   render() {
     return `
       <div class="game-area">
-        <player-option-polygon lines="${!this.animating.userChoice > 0}">
-          <player-option-btn color="blue" option="paper"></player-option-btn>
-          <player-option-btn
+        <${Component.PlayerOptionPolygon} lines="true">
+          <${Component.PlayerOptionBtn} color="blue" option="paper"></${Component.PlayerOptionBtn}>
+          <${Component.PlayerOptionBtn}
             color="yellow"
             option="scissors"
-          ></player-option-btn>
-          <player-option-btn color="red" option="rock"></player-option-btn>
-        </player-option-polygon>
+          ></${Component.PlayerOptionBtn}>
+          <${Component.PlayerOptionBtn} color="red" option="rock"></${Component.PlayerOptionBtn}>
+        </${Component.PlayerOptionPolygon}>
         <div id="game-in-progress">
-          <player-option-btn house="true"></player-option-btn>
+          <${Component.PlayerOptionBtn} house="true"></${Component.PlayerOptionBtn}>
 
           <div class="game-labels">
             <span class="user-label">YOU PICKED</span>

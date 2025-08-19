@@ -18,23 +18,15 @@
 
 .player-option {
   background-color: var(--linear-gradient-from);
-  background-image: -webkit-gradient(
-    linear,
-    from(var(--linear-gradient-from)),
-    to(var(--linear-gradient-to))
-  );
-  background-image: -webkit-linear-gradient(
-    var(--linear-gradient-from) 0%,
-    var(--linear-gradient-to) 100%
-  );
-  background-image: -moz-linear-gradient(
-    var(--linear-gradient-from) 0%,
-    var(--linear-gradient-to) 100%
-  );
-  background-image: -o-linear-gradient(
-    var(--linear-gradient-from) 0%,
-    var(--linear-gradient-to) 100%
-  );
+  background-image: -webkit-gradient(linear,
+      from(var(--linear-gradient-from)),
+      to(var(--linear-gradient-to)));
+  background-image: -webkit-linear-gradient(var(--linear-gradient-from) 0%,
+      var(--linear-gradient-to) 100%);
+  background-image: -moz-linear-gradient(var(--linear-gradient-from) 0%,
+      var(--linear-gradient-to) 100%);
+  background-image: -o-linear-gradient(var(--linear-gradient-from) 0%,
+      var(--linear-gradient-to) 100%);
 
   cursor: pointer;
   padding: 16px;
@@ -46,6 +38,7 @@
   user-select: none;
   outline: 0;
 }
+
 /* .player-option[selected="true"] {
   background: black;
 } */
@@ -81,9 +74,11 @@
     height: 160px;
     width: 160px;
   }
+
   .player-option-image-container {
     box-shadow: inset 0px 8px 0px hsl(231.43deg 17.65% 76.67%);
   }
+
   .player-option img {
     width: 70px;
   }
